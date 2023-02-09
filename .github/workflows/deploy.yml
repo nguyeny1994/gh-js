@@ -67,6 +67,7 @@ jobs:
           path: dist
   create-s3:
     runs-on: ubuntu-latest
+    working-directory: ${{ github.event.inputs.resource }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -155,6 +156,7 @@ jobs:
   test-url:
     needs: deploy
     runs-on: ubuntu-latest
+    working-directory: ${{ github.event.inputs.resource }}
     # working-directory: ${{ github.event.inputs.resource }}
     steps:
       - uses: actions/checkout@v3
