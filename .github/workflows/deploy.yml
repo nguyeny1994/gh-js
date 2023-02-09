@@ -1,6 +1,6 @@
 name: Deployment
 on:
-  push:
+  [push, workflow_dispatch]:
     branches:
       - master
 env:
