@@ -67,6 +67,9 @@ jobs:
           path: dist
   create-s3:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.event.inputs.resource }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -153,6 +156,9 @@ jobs:
   test-url:
     needs: deploy
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.event.inputs.resource }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -180,6 +186,7 @@ jobs:
       - name: Terraform init
         run: terraform init
       - name: Check result 2
+        working-directory: ${{ github.event.inputs.resource }}
         continue-on-error: true
         if: ${{ steps.web_health_check.outputs.result == '200' }}
         run: terraform destroy -auto-approve -var-file=variables.tfvars
