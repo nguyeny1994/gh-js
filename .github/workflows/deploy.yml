@@ -183,7 +183,7 @@ jobs:
           tf_actions_working_dir: 'directory'
       - name: Terraform init
         run: terraform init
-      - name: Check result
+      - name: Check result 2
         continue-on-error: true
         if: ${{ steps.web_health_check.outputs.result == '200' }}
         run: terraform destroy -auto-approve
