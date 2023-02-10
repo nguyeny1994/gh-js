@@ -65,17 +65,17 @@ jobs:
         with:
           name: dist-files
           path: dist
-  create-s3:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Terraform init
-        run: terraform init
-      - name: Install S3
-        run: terraform apply -auto-approve
+#   create-s3:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Get code
+#         uses: actions/checkout@v3
+#       - name: Setup Terraform
+#         uses: hashicorp/setup-terraform@v1
+#       - name: Terraform init
+#         run: terraform init
+#       - name: Install S3
+#         run: terraform apply -auto-approve
       #   with:
       #     name: dist-files
       #     path: ./dist
@@ -107,10 +107,10 @@ jobs:
       #   with:
       #     role-to-assume: arn:aws:iam::799754156383:role/GHtoAWS
       #     aws-region: us-east-1
-      # - name: Terraform init
-      #   run: terraform init
-      # - name: Install S3
-      #   run: terraform apply -auto-approve
+      - name: Terraform init
+        run: terraform init
+      - name: Install S3
+        run: terraform apply -auto-approve
       - name: Deploy site
         id: deploy
         uses: ./.github/actions/deploy-s3-javascript
