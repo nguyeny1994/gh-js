@@ -98,6 +98,7 @@ jobs:
         id: web_health_check
         run: |
           echo "result=$(url=gh-js.s3-website-us-east-1.amazonaws.com python url-check.py)" >> $GITHUB_OUTPUT
+          sleep 30
       - name: Check result
         continue-on-error: true
         if: ${{ steps.web_health_check.outputs.result == '200' }}
