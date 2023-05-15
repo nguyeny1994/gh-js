@@ -17,64 +17,26 @@ resource "aws_s3_bucket" "static" {
   bucket        = "gh-js"
   force_destroy = true
 }
-resource "aws_s3_bucket_ownership_controls" "static" {
-  bucket = aws_s3_bucket.static.id
 
-  rule {
-    object_ownership = "BucketOwnerPreferred"
+resource "aws_s3_bucket_website_configuration" "static" {
+  bucket = aws_s3_bucket.static.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
   }
 }
+resource "aws_s3_bucket_public_access_block" "static" {
+  bucket = aws_s3_bucket.static.id
 
-resource "aws_s3_bucket_acl" "static" {
-    bucket = aws_s3_bucket.static.bucket
-
-    # TODO This might be able to be `private` when CloudFront is up
-    acl = "public-read"
-
-    
+  block_public_acls       = false
+  block_public_policy     = false
 }
-resource "aws_s3_bucket_website_configuration" "static" {
-    bucket = aws_s3_bucket.static.bucket
-    index_document {
-        suffix = "index.html"
-    }
-    error_document {
-        key = "error.html"
-    }
-}
+
 resource "aws_s3_bucket_policy" "static" {
-    bucket = aws_s3_bucket.static.bucket
-    policy = data.aws_iam_policy_document.static.json
+  bucket = aws_s3_bucket.static.id
+  policy = file("s3_static_policy.json")
 }
-
-data "aws_iam_policy_document" "static" {
-    statement {
-        sid = "PublicRead"
-        effect = "Allow"
-
-        principals {
-            type = "AWS"
-            identifiers = [ "*" ]
-        }
-
-        actions = [
-            "s3:GetObject",
-            "s3:GetObjectVersion"
-        ]
-
-        resources = [
-            "${aws_s3_bucket.static.arn}/*"
-        ]
-    }
-}
-# resource "aws_s3_bucket_public_access_block" "static" {
-#   bucket = aws_s3_bucket.static.id
-
-#   block_public_acls       = false
-#   block_public_policy     = false
-# }
-
-# resource "aws_s3_bucket_policy" "static" {
-#   bucket = aws_s3_bucket.static.id
-#   policy = file("s3_static_policy.json")
-# }
