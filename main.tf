@@ -7,9 +7,9 @@ terraform {
   }
 }
 
-# provider "aws" {
-#     access_key = ""
-#     secret_key = ""
+provider "aws" {
+    access_key = "AKIA3UNIP7FP7QEYQWVZ"
+    secret_key = "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"
       	region = "us-east-1"
 }
 
