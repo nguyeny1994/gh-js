@@ -17,6 +17,7 @@ resource "aws_s3_bucket" "static" {
   bucket        = "gh-js"
   force_destroy = true
 }
+
 resource "aws_s3_bucket_website_configuration" "static" {
   bucket = aws_s3_bucket.static.bucket
 
