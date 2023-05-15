@@ -43,7 +43,7 @@ jobs:
           name: test-report
           path: test.json
   build:
-    needs: test
+    needs: install_dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Get code
