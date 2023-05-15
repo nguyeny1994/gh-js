@@ -18,14 +18,22 @@ resource "aws_s3_bucket" "static" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_ownership_controls" "static" {
+  bucket = aws_s3_bucket.static.id
+
+  rule {
+    control_object_ownership = true
+    object_ownership         = "ObjectWriter"
+    
+  }
+}
 resource "aws_s3_bucket_acl" "static" {
     bucket = aws_s3_bucket.static.bucket
 
     # TODO This might be able to be `private` when CloudFront is up
     acl = "public-read"
 
-    control_object_ownership = true
-    object_ownership         = "ObjectWriter"
+    
 }
 resource "aws_s3_bucket_website_configuration" "static" {
     bucket = aws_s3_bucket.static.bucket
