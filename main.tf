@@ -17,7 +17,7 @@ provider "aws" {
 #   bucket        = "gh-js"
 #   force_destroy = true
 # }
-module "s3_bucket" "static" {
+module "s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
 
   bucket = "gh-js"
