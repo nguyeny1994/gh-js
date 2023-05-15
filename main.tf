@@ -7,56 +7,98 @@ terraform {
   }
 }
 
-provider "aws" {
-#     access_key = ""
-#     secret_key = ""
-      	region = "us-east-1"
+# provider "aws" {
+# #     access_key = ""
+# #     secret_key = ""
+#       	region = "us-east-1"
+# }
+
+# # resource "aws_s3_bucket" "static" {
+# #   bucket        = "gh-js"
+# #   force_destroy = true
+# # }
+# module "s3_bucket" {
+#   source = "terraform-aws-modules/s3-bucket/aws"
+
+#   bucket = "gh-js"
+#   acl    = "private"
+
+#   control_object_ownership = true
+#   object_ownership         = "ObjectWriter"
+
+#   versioning = {
+#     enabled = true
+#   }
+# }
+# # resource "aws_s3_bucket_public_access_block" "static" {
+# #     bucket = aws_s3_bucket.static.bucket
+# #     block_public_acls = false
+# #     block_public_policy = false
+# #     ignore_public_acls = false
+# #     restrict_public_buckets = false
+# # }
+
+# # resource "aws_s3_bucket_ownership_controls" "static" {
+# #     bucket = aws_s3_bucket.static.bucket
+# #     rule {
+# #         object_ownership = "BucketOwnerPreferred"
+# #     }
+# # }
+# # resource "aws_s3_bucket_website_configuration" "static" {
+# #   bucket = aws_s3_bucket.static.bucket
+
+# #   index_document {
+# #     suffix = "index.html"
+# #   }
+
+# #   error_document {
+# #     key = "error.html"
+# #   }
+# # }
+
+# # resource "aws_s3_bucket_policy" "static" {
+# #   bucket = aws_s3_bucket.static.id
+# #   policy = file("s3_static_policy.json")
+# # }
+
+
+module "s3_bucket" {
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "3.8.2"
+
+  bucket        = "gh-js"
+
+  force_destroy = true
+
+  website = {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
+
 }
 
-# resource "aws_s3_bucket" "static" {
-#   bucket        = "gh-js"
-#   force_destroy = true
-# }
-module "s3_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
-
-  bucket = "gh-js"
-  acl    = "private"
-
-  control_object_ownership = true
-  object_ownership         = "ObjectWriter"
-
-  versioning = {
-    enabled = true
+data "aws_iam_policy_document" "read_access" {
+  statement {
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+    actions   = ["s3:GetObject"]
+    resources = ["${module.s3_bucket.s3_bucket_arn}/*"]
   }
 }
-# resource "aws_s3_bucket_public_access_block" "static" {
-#     bucket = aws_s3_bucket.static.bucket
-#     block_public_acls = false
-#     block_public_policy = false
-#     ignore_public_acls = false
-#     restrict_public_buckets = false
-# }
 
-# resource "aws_s3_bucket_ownership_controls" "static" {
-#     bucket = aws_s3_bucket.static.bucket
-#     rule {
-#         object_ownership = "BucketOwnerPreferred"
-#     }
-# }
-# resource "aws_s3_bucket_website_configuration" "static" {
-#   bucket = aws_s3_bucket.static.bucket
+# Need for avoid `Error putting S3 policy: AccessDenied: Access Denied`
+resource "time_sleep" "wait_2_seconds" {
+  depends_on      = [module.s3_bucket.s3_bucket_website_domain]
+  create_duration = "2s"
+}
 
-#   index_document {
-#     suffix = "index.html"
-#   }
+resource "aws_s3_bucket_policy" "read_access" {
+  bucket = module.s3_bucket.s3_bucket_id
+  policy = data.aws_iam_policy_document.read_access.json
 
-#   error_document {
-#     key = "error.html"
-#   }
-# }
-
-# resource "aws_s3_bucket_policy" "static" {
-#   bucket = aws_s3_bucket.static.id
-#   policy = file("s3_static_policy.json")
-# }
+  depends_on = [
+    time_sleep.wait_2_seconds
+  ]
+}
