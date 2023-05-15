@@ -16,17 +16,20 @@ provider "aws" {
 resource "aws_s3_bucket" "static" {
   bucket        = "gh-js"
   force_destroy = true
-}
-
-resource "aws_s3_bucket_ownership_controls" "static" {
-  bucket = aws_s3_bucket.static.id
-
-  rule {
-    control_object_ownership = true
+  
+   control_object_ownership = true
     object_ownership         = "ObjectWriter"
-    
-  }
 }
+
+# resource "aws_s3_bucket_ownership_controls" "static" {
+#   bucket = aws_s3_bucket.static.id
+
+# #   rule {
+# # #     control_object_ownership = true
+# # #     object_ownership         = "ObjectWriter"
+    
+# #   }
+# }
 resource "aws_s3_bucket_acl" "static" {
     bucket = aws_s3_bucket.static.bucket
 
