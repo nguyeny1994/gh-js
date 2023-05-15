@@ -13,11 +13,23 @@ provider "aws" {
       	region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "static" {
-  bucket        = "gh-js"
-  force_destroy = true
-}
+# resource "aws_s3_bucket" "static" {
+#   bucket        = "gh-js"
+#   force_destroy = true
+# }
+module "s3_bucket" "static" {
+  source = "terraform-aws-modules/s3-bucket/aws"
 
+  bucket = "gh-js"
+  acl    = "private"
+
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
+
+  versioning = {
+    enabled = true
+  }
+}
 resource "aws_s3_bucket_public_access_block" "static" {
     bucket = aws_s3_bucket.static.bucket
     block_public_acls = false
