@@ -21,7 +21,7 @@ module "s3_bucket" {
   version = "3.8.2"
 
   bucket = "gh-js"
-  acl           = "public-read-write"
+  acl           = "null"
 
   # Allow deletion of non-empty bucket
   force_destroy = true
