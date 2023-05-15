@@ -77,7 +77,7 @@ jobs:
         run: terraform init
       - name: Install S3
         run: terraform apply -auto-approve
-        with:
+        env:
           access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Deploy site
