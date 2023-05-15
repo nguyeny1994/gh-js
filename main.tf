@@ -36,7 +36,7 @@ resource "aws_s3_bucket_public_access_block" "static" {
   block_public_policy     = false
 }
 
-resource "aws_s3_bucket_policy" "static" {
-  bucket = aws_s3_bucket.static.id
-  policy = file("s3_static_policy.json")
-}
+# resource "aws_s3_bucket_policy" "static" {
+#   bucket = aws_s3_bucket.static.id
+#   policy = file("s3_static_policy.json")
+# }
