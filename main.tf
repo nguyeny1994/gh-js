@@ -18,6 +18,24 @@ resource "aws_s3_bucket" "static" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_acl" "static" {
+    bucket = aws_s3_bucket.static.bucket
+
+    # TODO This might be able to be `private` when CloudFront is up
+    acl = "public-read"
+
+    control_object_ownership = true
+    object_ownership         = "ObjectWriter"
+}
+resource "aws_s3_bucket_website_configuration" "static" {
+    bucket = aws_s3_bucket.static.bucket
+    index_document {
+        suffix = "index.html"
+    }
+    error_document {
+        key = "error.html"
+    }
+}
 resource "aws_s3_bucket_policy" "static" {
     bucket = aws_s3_bucket.static.bucket
     policy = data.aws_iam_policy_document.static.json
@@ -43,24 +61,6 @@ data "aws_iam_policy_document" "static" {
         ]
     }
 }
-
-
-resource "aws_s3_bucket_acl" "static" {
-    bucket = aws_s3_bucket.static.bucket
-
-    # TODO This might be able to be `private` when CloudFront is up
-    acl = "public-read"
-}
-resource "aws_s3_bucket_website_configuration" "static" {
-    bucket = aws_s3_bucket.static.bucket
-    index_document {
-        suffix = "index.html"
-    }
-    error_document {
-        key = "error.html"
-    }
-}
-
 # resource "aws_s3_bucket_public_access_block" "static" {
 #   bucket = aws_s3_bucket.static.id
 
