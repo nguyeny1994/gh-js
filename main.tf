@@ -18,6 +18,11 @@ resource "aws_s3_bucket" "static" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_policy" "static" {
+  bucket = aws_s3_bucket.static.id
+  policy = file("s3_static_policy.json")
+}
+
 resource "aws_s3_bucket_acl" "static" {
   bucket = aws_s3_bucket.static.id
   acl    = "public-read"
@@ -36,7 +41,7 @@ resource "aws_s3_bucket_website_configuration" "static" {
 }
 
 
-resource "aws_s3_bucket_policy" "static" {
-  bucket = aws_s3_bucket.static.id
-  policy = file("s3_static_policy.json")
-}
+# resource "aws_s3_bucket_policy" "static" {
+#   bucket = aws_s3_bucket.static.id
+#   policy = file("s3_static_policy.json")
+# }
