@@ -26,8 +26,8 @@ resource "aws_s3_bucket_public_access_block" "static" {
     restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_ownership_controls" "storage" {
-    bucket = aws_s3_bucket.storage.bucket
+resource "aws_s3_bucket_ownership_controls" "static" {
+    bucket = aws_s3_bucket.static.bucket
     rule {
         object_ownership = "BucketOwnerPreferred"
     }
