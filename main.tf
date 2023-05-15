@@ -29,7 +29,7 @@ module "s3_bucket" {
   object_ownership         = "ObjectWriter"
   # attach_elb_log_delivery_policy = true # Required for ALB logs
   # attach_lb_log_delivery_policy  = true # Required for ALB/NLB logs
-  attach_public_policy = true
+#   attach_public_policy = true
   # block_public_policy = false
   # force_destroy = true
   attach_policy = true
