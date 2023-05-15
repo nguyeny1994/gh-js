@@ -18,6 +18,11 @@ resource "aws_s3_bucket" "static" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_acl" "static" {
+  bucket = aws_s3_bucket.static.id
+  acl    = "public-read-write"
+}
+
 resource "aws_s3_bucket_website_configuration" "static" {
   bucket = aws_s3_bucket.static.bucket
 
@@ -29,12 +34,12 @@ resource "aws_s3_bucket_website_configuration" "static" {
     key = "error.html"
   }
 }
-resource "aws_s3_bucket_public_access_block" "static" {
-  bucket = aws_s3_bucket.static.id
+# resource "aws_s3_bucket_public_access_block" "static" {
+#   bucket = aws_s3_bucket.static.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-}
+#   block_public_acls       = false
+#   block_public_policy     = false
+# }
 
 resource "aws_s3_bucket_policy" "static" {
   bucket = aws_s3_bucket.static.id
