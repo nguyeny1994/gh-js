@@ -64,6 +64,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Kiểm tra terraform version
+        run: terraform version
       - name: Get code
         uses: actions/checkout@v3
       - name: Get build artifacts
