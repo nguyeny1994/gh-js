@@ -40,17 +40,17 @@ resource "aws_s3_bucket_policy" "static" {
 # #   acl    = "public-read"
 # # }
 
-# resource "aws_s3_bucket_website_configuration" "static" {
-#   bucket = aws_s3_bucket.static.bucket
+resource "aws_s3_bucket_website_configuration" "static" {
+  bucket = aws_s3_bucket.static.bucket
 
-#   index_document {
-#     suffix = "index.html"
-#   }
+  index_document {
+    suffix = "index.html"
+  }
 
-#   error_document {
-#     key = "error.html"
-#   }
-# }
+  error_document {
+    key = "error.html"
+  }
+}
 
 # resource "aws_s3_bucket_policy" "static" {
 #   bucket = aws_s3_bucket.static.id
