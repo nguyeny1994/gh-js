@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "4.44.0"
+      version = "4.64.0"
     }
   }
 }
@@ -18,11 +18,20 @@ resource "aws_s3_bucket" "static" {
   force_destroy = true
 }
 
-# resource "aws_s3_bucket_acl" "static" {
-#   bucket = aws_s3_bucket.static.id
-#   acl    = "public-read-write"
-# }
+resource "aws_s3_bucket_public_access_block" "static" {
+    bucket = aws_s3_bucket.static.bucket
+    block_public_acls = false
+    block_public_policy = false
+    ignore_public_acls = false
+    restrict_public_buckets = false
+}
 
+resource "aws_s3_bucket_ownership_controls" "storage" {
+    bucket = aws_s3_bucket.storage.bucket
+    rule {
+        object_ownership = "BucketOwnerPreferred"
+    }
+}
 resource "aws_s3_bucket_website_configuration" "static" {
   bucket = aws_s3_bucket.static.bucket
 
