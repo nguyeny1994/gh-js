@@ -45,7 +45,9 @@ resource "aws_s3_bucket_acl" "static" {
 
 resource "aws_s3_bucket_policy" "static_policy" {
     bucket = aws_s3_bucket.static.bucket
-    policy = data.aws_iam_policy_document.static_policy.json
+#     policy = data.aws_iam_policy_document.static_policy.json
+    policy = file("s3_static_policy.json")
+}
 resource "aws_s3_bucket_website_configuration" "static" {
   bucket = aws_s3_bucket.static.bucket
 
