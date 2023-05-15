@@ -64,11 +64,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.7
-      - name: Kiểm tra terraform version
-        run: terraform version
+#       - uses: hashicorp/setup-terraform@v2
+#         with:
+#           terraform_version: 1.3.7
+#       - name: Kiểm tra terraform version
+#         run: terraform version
       - name: Get code
         uses: actions/checkout@v3
       - name: Get build artifacts
