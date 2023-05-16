@@ -28,7 +28,13 @@ resource "aws_s3_bucket_website_configuration" "static" {
     key = "error.html"
   }
 }
+resource "aws_s3_bucket_ownership_controls" "static" {
+  bucket = aws_s3_bucket.static.id
 
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
 # resource "aws_s3_bucket_acl" "static" {
 #   bucket = aws_s3_bucket.static.id
 #   acl    = "public-read"
