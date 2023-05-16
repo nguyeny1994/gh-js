@@ -1,33 +1,20 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Principal": 
-            {
-                "AWS":"arn:aws:iam::799754156383:user/nvnthanh"
-            },
-            "Action": "s3:GetObject",
-            "Resource": [
-                "arn:aws:s3:::gh-js/*"
-            ],
-            "Effect": "Allow"
-        }
-    ]
-}
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Principal": 
-            {
-                "AWS":"arn:aws:iam::799754156383:user/nvnthanh"
-            },
-            "Action": "s3:GetObject",
-            "Resource": [
-                "arn:aws:s3:::gh-js/*"
-            ],
-            "Effect": "Allow"
-        }
-    ]
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": "arn:aws:iam::799754156383:user/nvnthanh"
+			},
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::gh-js/*"
+		},
+		{
+			"Sid": "Statement1",
+			"Principal": "*",
+			"Effect": "Allow",
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::gh-js/*"
+		}
+	]
 }
