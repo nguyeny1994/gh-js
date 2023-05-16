@@ -33,7 +33,7 @@ resource "aws_s3_bucket_ownership_controls" "static" {
 
   rule {
     object_ownership = "ObjectWriter"
-    control_object_ownership = true
+    acls_disabled = true
   }
 }
 # resource "aws_s3_bucket_acl" "static" {
