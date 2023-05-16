@@ -32,7 +32,7 @@ resource "aws_s3_bucket_ownership_controls" "static" {
   bucket = aws_s3_bucket.static.id
 
   rule {
-    object_ownership = "BucketOwnerEnforced"
+    object_ownership = "ObjectWriter"
   }
 }
 # resource "aws_s3_bucket_acl" "static" {
