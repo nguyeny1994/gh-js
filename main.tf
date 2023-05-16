@@ -14,6 +14,7 @@ provider "aws" {
 resource "aws_s3_bucket" "static" {
   bucket        = "gh-js"
   force_destroy = true
+  acl = "public-read"
 }
 
 resource "aws_s3_bucket_website_configuration" "static" {
