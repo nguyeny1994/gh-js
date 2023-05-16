@@ -10,40 +10,12 @@ terraform {
 provider "aws" {
     region = "us-east-1"
 }
-# resource "aws_s3_bucket" "test" {
-#   bucket        = "test_bucket"
-#   force_destroy = true
-# }
+
 resource "aws_s3_bucket" "static" {
   bucket        = "gh-js"
   force_destroy = true
 }
-# resource "aws_s3_bucket_policy" "static" {
-#   bucket = aws_s3_bucket.static.id
-#   policy = <<EOF
-#   {
-#    "Version":"2012-10-17",
-#    "Id":"MYBUCKETPOLICY",
-#    "Statement":[
-#       {
-#          "Effect":"Allow",
-#          "Principal":"*",
-#          "Action":"s3:*",
-#          "Resource":"arn:aws:s3:::gh-js/*"
-#       }
-#    ]
-# }
-#   EOF
-# }
-# resource "aws_s3_bucket" "static" {
-#   bucket        = "gh-js"
-#   force_destroy = true
-#   # provisioner "local-exec" {
-#   #   interpreter = ["PowerShell", "-Command"]
-#   #   command = "start-sleep 300"
-#   # }
-# }
-# 
+
 resource "aws_s3_bucket_website_configuration" "static" {
   bucket = aws_s3_bucket.static.bucket
 
