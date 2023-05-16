@@ -4,7 +4,10 @@
         {
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::gh-js/*",
+            "Resource": [
+                "arn:aws:s3:::gh-js",
+                "arn:aws:s3:::gh-js/*"
+                ],
             "Effect": "Allow"
         }
     ]
