@@ -14,7 +14,7 @@ provider "aws" {
 resource "aws_s3_bucket" "static" {
   bucket        = "gh-js"
   force_destroy = true
-  acl = "public-read"
+#   acl = "public-read"
 }
 
 resource "aws_s3_bucket_website_configuration" "static" {
@@ -31,7 +31,7 @@ resource "aws_s3_bucket_website_configuration" "static" {
 
 resource "aws_s3_bucket_acl" "static" {
   bucket = aws_s3_bucket.static.id
-  acl    = "private"
+  acl    = "public-read"
 }
 
 resource "aws_s3_bucket_public_access_block" "static" {
