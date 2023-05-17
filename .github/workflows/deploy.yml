@@ -81,6 +81,11 @@ jobs:
       - name: Terraform init
         run: terraform init
       - name: Install S3
+        continue-on-error: true
+        run: |
+          terraform apply -auto-approve
+      - name: Install S3
+#         continue-on-error: true
         run: |
           terraform apply -auto-approve
       - name: Deploy site
