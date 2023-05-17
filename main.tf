@@ -54,11 +54,11 @@ resource "aws_s3_bucket_policy" "read_access" {
     bucket = module.s3_bucket.s3_bucket_id
     policy = file("s3_static_policy.json")
     depends_on = [module.s3_bucket]
-    provisioner "local-exec" {
-      command = "sleep 30"
-#     interpreter = ["PowerShell", "-Command"]
-#     command = "start-sleep 50"
-  }
+#     provisioner "local-exec" {
+#       command = "sleep 30"
+# #     interpreter = ["PowerShell", "-Command"]
+# #     command = "start-sleep 50"
+#   }
 #   depends_on = [
 #     time_sleep.wait_2_seconds
 #   ]
