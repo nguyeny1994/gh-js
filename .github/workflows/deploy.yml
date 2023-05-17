@@ -110,8 +110,8 @@ jobs:
       - name: Check result
         continue-on-error: true
         if: ${{ steps.web_health_check.outputs.result == '200' }}
-#         run: terraform destroy -auto-approve
-        run: echo ${{ steps.web_health_check.outputs.result }} 
+        run: terraform destroy -auto-approve
+#         run: echo ${{ steps.web_health_check.outputs.result }} 
       - name: Check result 1
         if: ${{ steps.web_health_check.outputs.result != '200' }}
         run: echo ${{ steps.web_health_check.outputs.result }} 
