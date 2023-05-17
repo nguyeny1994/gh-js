@@ -49,12 +49,12 @@ resource "aws_s3_bucket_ownership_controls" "static" {
   }
 }
 
-resource "aws_s3_bucket_acl" "static" {
-  depends_on = [aws_s3_bucket_ownership_controls.static]
+# resource "aws_s3_bucket_acl" "static" {
+#   depends_on = [aws_s3_bucket_ownership_controls.static]
 
-  bucket = aws_s3_bucket.static.id
-  acl    = "public-read"
-}
+#   bucket = aws_s3_bucket.static.id
+#   acl    = "public-read"
+# }
 
 resource "aws_s3_bucket_website_configuration" "static" {
   bucket = aws_s3_bucket.static.bucket
