@@ -113,7 +113,6 @@ jobs:
         continue-on-error: true
         if: ${{ steps.web_health_check.outputs.result == '200' }}
         run: |
-          aws s3 rm s3://gh-js --recursive
           terraform destroy -auto-approve
 #         run: echo ${{ steps.web_health_check.outputs.result }} 
       - name: Check result 1
