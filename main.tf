@@ -19,15 +19,15 @@ resource "aws_s3_bucket" "static" {
     command = "sleep 10"
   }
 }
-resource "aws_s3_bucket_public_access_block" "static" {
-  bucket = aws_s3_bucket.static.id
+# resource "aws_s3_bucket_public_access_block" "static" {
+#   bucket = aws_s3_bucket.static.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-  provisioner "local-exec" {
-    command = "sleep 10"
-  }
-}
+#   block_public_acls       = false
+#   block_public_policy     = false
+#   provisioner "local-exec" {
+#     command = "sleep 10"
+#   }
+# }
 
 resource "aws_s3_bucket_policy" "static" {
   bucket = aws_s3_bucket.static.id
