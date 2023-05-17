@@ -82,7 +82,6 @@ jobs:
         run: terraform init
       - name: Install S3
         run: |
-          aws sts get-caller-identity
           terraform apply -auto-approve
       - name: Deploy site
         id: deploy
