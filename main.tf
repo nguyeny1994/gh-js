@@ -17,7 +17,7 @@ module "s3_bucket" {
     # acl    = "public-read"
 
     # Allow deletion of non-empty bucket
-    # force_destroy = true
+    force_destroy = true
 
     
     block_public_policy = false
